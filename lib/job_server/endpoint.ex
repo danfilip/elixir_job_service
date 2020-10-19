@@ -57,6 +57,10 @@ defmodule JobServer.Endpoint do
 
   end
 
+  get "/hello" do
+    send_resp(conn, 200, "Hi there!")
+  end
+
   # A catchall route to handle inexistent paths
   match _ do
     send_resp(conn, 404, "Nothing here")

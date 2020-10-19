@@ -6,9 +6,17 @@ defmodule JobServer.EndpointTest do
 
   # alias JobServer.Test.Utils  TODO: can't read it? why?
 
+  # TODO !! make a macro to generate all tests based on the test request files.
+
   def read_json(path) do
     with {:ok, body} <- File.read(path),
          {:ok, json} <- Poison.decode!(body), do: {:ok, json}
+  end
+
+  setup do
+    # File.rm_rf!('./test/test_requests/results')  TODO: leaving this has strange behaviour
+    File.mkdir_p!('./test/test_requests/results/tasks')
+    File.mkdir_p!('./test/test_requests/results/scripts')
   end
 
   test "sorts the tasks correctly and returns json" do
@@ -20,7 +28,7 @@ defmodule JobServer.EndpointTest do
     conn = JobServer.Endpoint.call(conn, @opts)
 
     # Assert the response
-    File.write!("./test/test_requests/good.sorted", conn.resp_body)
+    :ok = File.write!("./test/test_requests/results/tasks/good.sorted", conn.resp_body)
 
     assert conn.status == 200
   end
@@ -34,7 +42,7 @@ defmodule JobServer.EndpointTest do
     conn = JobServer.Endpoint.call(conn, @opts)
 
     # Assert the response
-    File.write!("./test/test_requests/good.script", Poison.decode!(conn.resp_body))
+    :ok = File.write!("./test/test_requests/results/scripts/good.script", Poison.decode!(conn.resp_body))
 
     assert conn.status == 200
   end
