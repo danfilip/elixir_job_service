@@ -72,10 +72,12 @@ ifconfig
 
 ## Test
 
-Simply run: ``` mix test ``` and see the test result in the ```test\test\requests\results``` folder
+Simply run: ``` mix test ``` and see the test result in the ```test\test\requests\results\[scripts|tasks]``` folder
 
 OR
 
 run ```mix run --no-halt``` to start the webserver and perform any of the two requests on http://localhost:2345
 
+## Test Case
 
+There are a few test scenarios each with its own separate json test file located in the ```test\test_requests``` subfolder
