@@ -2,13 +2,14 @@
     "tasks" : [
         {
             "name" : "task-1",
-            "command" : "ls -l"        
+            "command" : "ls -l",
+            "requires" : ["task-2"]     
         },
         {
             "name" : "task-2",
             "command" : "cat file.txt",
             "requires" : ["task-3"]
-        },
+        },        
         {
             "name" : "task-3",
             "command" : "shutdown",

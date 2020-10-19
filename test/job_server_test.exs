@@ -19,6 +19,34 @@ defmodule JobServer.EndpointTest do
     File.mkdir_p!('./test/test_requests/results/scripts')
   end
 
+  def make_request(function, json) do
+    conn = conn(:post, "/job/#{function}", json)
+    conn = JobServer.Endpoint.call(conn, @opts)
+
+    conn
+  end
+
+  def test_scenario(scenario, expected_http_rsp) do
+    json = read_json("./test/test_requests/#{scenario}.json")
+
+    conn = make_request("sort", json)
+    :ok = File.write!("./test/test_requests/results/tasks/#{scenario}.sorted", conn.resp_body)
+    assert conn.status == expected_http_rsp
+
+    conn = make_request("script", json)
+    :ok = File.write!("./test/test_requests/results/scripts/#{scenario}.script", conn.resp_body)
+    assert conn.status == expected_http_rsp
+
+  end
+
+  test "Should fail when a cycle is detected in the dependency graph" do
+    test_scenario("cycle", 422);
+  end
+
+  test "Should fail because of duplicate task names in the list" do
+    test_scenario("duplicate_ids", 422);
+  end
+
   test "sorts the tasks correctly and returns json" do
     json = read_json("./test/test_requests/good.json")
 
