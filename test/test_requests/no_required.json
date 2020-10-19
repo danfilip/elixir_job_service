@@ -1,0 +1,16 @@
+{
+    "tasks" : [
+        {
+            "name" : "task-1",
+            "command" : "ls -l"        
+        },
+        {
+            "name" : "task-2",
+            "command" : "cat file.txt",
+        },
+        {
+            "name" : "task-3",
+            "command" : "shutdown",
+        }                       
+    ]
+}
