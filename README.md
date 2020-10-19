@@ -78,6 +78,6 @@ OR
 
 run ```mix run --no-halt``` to start the webserver and perform any of the two requests on http://localhost:2345
 
-## Test Case
+## Test Cases
 
 There are a few test scenarios each with its own separate json test file located in the ```test\test_requests``` subfolder
