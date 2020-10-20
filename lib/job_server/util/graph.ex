@@ -6,7 +6,7 @@ defmodule Graph do
   Should also receive 2 other functions : one to get the ID of the task and one to get the dependencies of a task
   """
   def build_graph(object_map, _get_id_fn, get_dependencies_fn) do
-    graph = :digraph.new()
+    graph = :digraph.new() #{:acyclic true}) # TODO
 
     Enum.each(object_map, fn ({name, _task}) ->
       # IO.puts("Add Vertex: #{inspect(name)}")

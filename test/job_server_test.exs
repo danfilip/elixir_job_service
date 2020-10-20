@@ -47,6 +47,10 @@ defmodule JobServer.EndpointTest do
     test_scenario("duplicate_ids", 422);
   end
 
+  test "Should not fail because of empty tasklist" do
+    test_scenario("empty_tasklist", 200);
+  end
+
   test "sorts the tasks correctly and returns json" do
     json = read_json("./test/test_requests/good.json")
 
